@@ -1,0 +1,24 @@
+th {
+    font-size: 1em;
+    background-color: orangered;
+    color: white;
+    padding: 1vh;
+    text-align: left;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 1vh;
+}
+
+tr:nth-child(even){background-color: #f2f2f2;}
+
+body {
+    display: inline;
+}
+
+table {
+    margin: 1vh auto;
+    text-align: left;
+    border-collapse: collapse;
+}
