@@ -1,0 +1,15 @@
+main { 
+  grid-column: 1 / 4;
+}
+
+form {
+    padding: 4vh 0;
+    grid-template-columns: 1fr 9fr;
+}
+
+input {
+    margin: 1vh 0;
+    padding: 1vh;
+    border-radius: 0.5vh;
+    border: 0.1vh solid black;
+}

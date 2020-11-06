@@ -1,0 +1,39 @@
+#container {
+    display: flex;
+    margin: auto;
+}
+
+#grades {
+    margin: auto;
+    padding: 3vh;
+}
+
+main {
+    grid-column: 1 / 4;
+}
+
+.card {
+    background-color: aqua;
+    color: brown;
+    padding: 2vh;
+    margin-right: 2vh;
+
+}
+
+.card h4 {
+    padding: 0 1vh;
+}
+
+.card-grade-title {
+    display: flex;
+}
+
+.card-head {
+    background-color: brown;
+    color: white;
+    padding: 0 1vh;
+}
+
+.failed {
+    background: darksalmon;
+}
