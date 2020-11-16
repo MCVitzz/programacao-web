@@ -83,38 +83,116 @@ function addOptions() {
 
 function calculate() {
 
-    var output = document.getElementById('output');
+    let values = {};
 
-    var studentIdx = document.getElementById('studentName').value;
+    let output = document.getElementById('output');
 
-    var unitIdx = document.getElementById('unitName').value;
+    let verificationFlag = false;
 
-    var projectGrade = parseFloat(document.getElementById('projectGrade').value);
-    var projectPercentage = parseFloat(document.getElementById('projectPercentage').value);
+    if (!verifyStudent(values)) verificationFlag = true;
+    if (!verifyUnit(values)) verificationFlag = true;
+    if (!verifyProject(values)) verificationFlag = true;
+    if (!verifyTest(values)) verificationFlag = true;
+    if (!verifyPercentages(values)) verificationFlag = true;
 
-    var testGrade = parseFloat(document.getElementById('testGrade').value);
-    var testPercentage = parseFloat(document.getElementById('testPercentage').value);
+    if (verificationFlag) return;
 
-    var fields = document.querySelectorAll('input[type=text], select');
-
-    for (field of fields) {
-        if (field.value == '') {
-            alert('Please fill out all fields.');
-            return;
-        }
-    }
-
-    if (testPercentage + projectPercentage != 100) {
-        alert('The percentages don\'t add up to 100.');
-        return;
-    }
-
-    var finalGrade = projectGrade * projectPercentage * 0.01 + testGrade * testPercentage * 0.01;
+    var finalGrade = values.projectGrade * values.projectPercentage * 0.01 + values.testGrade * values.testPercentage * 0.01;
     Math.ceil(finalGrade);
 
-    let student = students[studentIdx];
-    let unit = units[unitIdx];
+    let student = students[values.studentIdx];
+    let unit = units[values.unitIdx];
 
 
     output.innerHTML = `Student ${student.name} with the number ${student.number} obtained ${finalGrade.toFixed(1)} on the ${unit.name} unit (${unit.ects} ECTS) of the ${unit.semester}.`;
+
+    let saveValue = {
+        proj: { grade: values.projectGrade, percentage: values.projectPercentage },
+        test: { grade: values.testGrade, percentage: values.testPercentage },
+        student: { name: student.name, number: student.number },
+        unit: { name: unit.name, semester: unit.semester, ects: unit.ects }
+    }
+
+    sessionStorage.setItem('grade', JSON.stringify(saveValue));
+    window.location = 'gradeConfirmation.html';
+}
+
+
+function verifyStudent(values) {
+    let studentIdx = document.getElementById('studentName').value;
+    let studentP = document.getElementById('studentP');
+
+    if (studentIdx != '') {
+        values.studentIdx = studentIdx;
+        studentP.classList.add('hidden');
+        return true;
+    }
+    else {
+        studentP.classList.remove('hidden');
+        return false;
+    }
+}
+
+function verifyUnit(values) {
+    let unitIdx = document.getElementById('unitName').value;
+    let unitP = document.getElementById('unitP');
+
+    if (unitIdx != '') {
+        values.unitIdx = unitIdx;
+        unitP.classList.add('hidden');
+        return true;
+    }
+    else {
+        unitP.classList.remove('hidden');
+        return false;
+    }
+}
+
+function verifyProject(values) {
+
+    let projectGrade = document.getElementById('projectGrade').value;
+    let projectPercentage = document.getElementById('projectPercentage').value;
+    let projectP = document.getElementById('projectP');
+
+    if (projectGrade != '' && projectPercentage != '') {
+        values.projectGrade = parseFloat(projectGrade);
+        values.projectPercentage = parseFloat(projectPercentage);
+        projectP.classList.add('hidden');
+        return true;
+    }
+    else {
+        projectP.classList.remove('hidden');
+        return false;
+    }
+}
+
+function verifyTest(values) {
+
+    let testGrade = document.getElementById('testGrade').value;
+    let testPercentage = document.getElementById('testPercentage').value;
+    let testP = document.getElementById('testP');
+
+    if (testGrade != '' && testPercentage != '') {
+        values.testGrade = parseFloat(testGrade);
+        values.testPercentage = parseFloat(testPercentage);
+        testP.classList.add('hidden');
+        return true;
+    }
+    else {
+        testP.classList.remove('hidden');
+        return false;
+    }
+}
+
+
+function verifyPercentages(values) {
+    let percentageError = document.getElementById('sumPercentages');
+    if (values.testPercentage + values.projectPercentage == 100) {
+        percentageError.classList.add('hidden');
+        return true;
+    }
+    else {
+        percentageError.classList.remove('hidden');
+        return false;
+    }
 }

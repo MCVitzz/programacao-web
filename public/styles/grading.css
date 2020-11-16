@@ -13,3 +13,11 @@ input {
     border-radius: 0.5vh;
     border: 0.1vh solid black;
 }
+
+.hidden {
+  display: none;
+}
+
+.error {
+  color: red;
+}

@@ -1,43 +1,83 @@
-const studentName = 'Francis Lamb';
+let studentName;
 
-const unitGrades = [
-    {
-        name: 'Mathematics',
-        grade: 8.3,
-        semester: '3rd Semester',
-        ects: 6
-    },
-    {
-        name: 'Literature',
-        grade: 11.2,
-        semester: '2nd Semester',
-        ects: 6
-    },
-    {
-        name: 'Laws',
-        grade: 18.5,
-        semester: '1st Semester',
-        ects: 3
-    },
-    {
-        name: 'Informatics',
-        grade: 14.3,
-        semester: '1st Semester',
-        ects: 6
-    },
-    {
-        name: 'Cooking',
-        grade: 7.4,
-        semester: '2nd Semester',
-        ects: 3
-    },
+const allGrades = [
+    [
+        {
+            name: 'Mathematics',
+            grade: 8.3,
+            semester: '3rd Semester',
+            ects: 6
+        },
+        {
+            name: 'Literature',
+            grade: 11.2,
+            semester: '2nd Semester',
+            ects: 6
+        },
+        {
+            name: 'Laws',
+            grade: 18.5,
+            semester: '1st Semester',
+            ects: 3
+        },
+        {
+            name: 'Informatics',
+            grade: 14.3,
+            semester: '1st Semester',
+            ects: 6
+        },
+        {
+            name: 'Cooking',
+            grade: 7.4,
+            semester: '2nd Semester',
+            ects: 3
+        },
+    ],
+    [
+        {
+            name: 'Mathematics',
+            grade: 14.5,
+            semester: '3rd Semester',
+            ects: 6
+        },
+        {
+            name: 'Literature',
+            grade: 10.6,
+            semester: '2nd Semester',
+            ects: 6
+        },
+        {
+            name: 'Laws',
+            grade: 8.7,
+            semester: '1st Semester',
+            ects: 3
+        },
+    ],
+    [
+        {
+            name: 'Mathematics',
+            grade: 12.3,
+            semester: '3rd Semester',
+            ects: 6
+        },
+        {
+            name: 'Literature',
+            grade: 14.8,
+            semester: '2nd Semester',
+            ects: 6
+        },
+    ],
 ];
 
 window.onload = () => {
 
-    let { unitsFailed, gradeSum, ectsSum } = getCalcs();
+    studentName = sessionStorage.getItem('studentName');
 
-    let unitsFinished = unitGrades.length - unitsFailed;
+    studentIdx = sessionStorage.getItem('studentId');
+
+    let { unitsFailed, gradeSum, ectsSum } = getCalcs(allGrades[studentIdx]);
+
+    let unitsFinished = allGrades[studentIdx].length - unitsFailed;
 
     let average = gradeSum / ectsSum;
 
@@ -46,21 +86,21 @@ window.onload = () => {
 
     setStudentTag(`${studentName} grades`);
 
-    showCards();
+    showCards(allGrades[studentIdx]);
 };
 
 function setStudentTag(text) {
     document.getElementById('student').innerHTML = text;
 }
 
-function showCards() {
+function showCards(unitGrades) {
     for (let grade of unitGrades) {
         let card = buildCard(grade);
         document.getElementById('container').innerHTML += card;
     }
 }
 
-function getCalcs() {
+function getCalcs(unitGrades) {
     let gradeSum = 0;
     let ectsSum = 0;
     let unitsFailed = 0;

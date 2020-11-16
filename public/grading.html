@@ -9,7 +9,7 @@
 
 <body>
   <header>
-    <a href="./index.html"><img id="profileImg" src="./images/student.png" ></a>
+    <a href="./index.html"><img id="logo" src="./images/student.png" ></a>
     <section>
       <h1>Learning Platform</h1>
       <h3>This platform will help you manage your classes</h3>
@@ -18,20 +18,24 @@
   <main>
       <form>
           <label for="studentName">Student Name:</label>
-          <select id="studentName" name="studentName" ></select><br>
+          <select id="studentName" name="studentName" ></select><p class="error hidden" id="studentP">Please select student.</p><br>
           
           <label for="unitName">Unit Name:</label>
-          <select id="unitName" name="unitName" ></select><br>
+          <select id="unitName" name="unitName" ></select><p class="error hidden" id="unitP">Please select unit.</p><br>
 
           <label for="projectGrade">Project Grade:</label>
           <input type="text" id="projectGrade" name="projectGrade" >
           <label for="projectPercentage">Percentage:</label>
-          <input type="text" id="projectPercentage" name="projectPercentage" min="0" max="100" step="0.1" ><br>
+          <input type="text" id="projectPercentage" name="projectPercentage" min="0" max="100" step="0.1" >
+          <p class="error hidden" id="projectP">Please fill out project details.</p><br>
 
           <label class="half" for="testGrade">Test Grade:</label>
           <input class="half" type="text" id="testGrade" name="testGrade" >
           <label class="second" for="testPercentage">Percentage:</label>
           <input class="second" type="text" id="testPercentage" name="testPercentage" min="0" max="100" step="0.1" ><br>
+          <p class="error hidden" id="testP">Please fill out test details.</p>
+          <p class="error hidden" id="sumPercentages">Percentages don't add up to 100.</p><br>          
+
           <input id="calculate" type="button" value="Calculate">
           <input id="reset" type="reset" value="Reset">
       </form>

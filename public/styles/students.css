@@ -1,0 +1,14 @@
+main {
+    grid-column: 1 / 4;
+    width: 100%;
+    display: flex;
+}
+
+.student-card {
+    width: fit-content;
+    padding: 2vh;
+    background-color: lightblue;
+    color: blueviolet;
+    margin: 1vh;
+    cursor: pointer;
+}
